@@ -24,14 +24,17 @@ async function createBackup()
                         port: empresas[i].port
                     }
 
-                    var server = await mysqldump({
-                        connection: mysql,
-                        dumpToFile: `./backup/${mysql.database}_${mysql.host}_${getFechaActual()}.sql`,
-                        dump:{tables:excludedTables,
-                            excludeTables:true}
-                    });
+                    try {
+                        var server = await mysqldump({
+                            connection: mysql,
+                            dumpToFile: `./backup/${mysql.database}_${mysql.host}_${getFechaActual()}.sql`,
+                            dump:{tables:excludedTables,
+                                excludeTables:true}
+                        });
+                    }catch (e) {
+                        console.log(e.toString())
+                    }
                 }
-                console.log("TERMINADO....")
             }else{
                 console.log("SIN EMPRESAS PARA BACKUP")
             }
@@ -47,6 +50,7 @@ nodecron.schedule('0 2 * * *',async ()=>
 {
     console.log(`INICIANDO BACKUP ${getFechaActual()}`)
     await createBackup()
+    console.log("TERMINADO BACKUP....")
 })
 
 console.log("CODIGO CARGADO....")
