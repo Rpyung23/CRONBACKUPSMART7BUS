@@ -46,7 +46,7 @@ async function createBackup()
     }
 }
 
-nodecron.schedule('0 2 * * *',async ()=>
+nodecron.schedule('0 1 * * *',async ()=>
 {
     console.log(`INICIANDO BACKUP ${getFechaActual()}`)
     await createBackup()
