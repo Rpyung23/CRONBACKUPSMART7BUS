@@ -42,7 +42,8 @@ async function createBackup()
             console.log(response.body)
         }
     }catch (e) {
-        console.log(e)
+        console.log("TRY GLOBAL")
+        console.log(e.toString())
     }
 }
 
